@@ -45,137 +45,48 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.055;b
 .tracker-head h2{font-size:12px;margin:0;text-transform:uppercase;letter-spacing:.06em}
 .tracker-count{font-size:12px;font-weight:950;color:#fff;letter-spacing:.04em}
 .number-grid{min-height:0;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));grid-template-rows:repeat(9,minmax(0,1fr));gap:3px}
-.number-slot{min-width:0;min-height:0;border:1px solid rgba(255,255,255,.32);border-radius:7px;background:transparent;display:grid;place-items:center;font-size:clamp(10px,2vh,16px);font-weight:850;color:#fff;position:relative;will-change:transform,filter}
+.number-slot{min-width:0;min-height:0;border:1px solid rgba(255,255,255,.32);border-radius:7px;background:transparent;display:grid;place-items:center;font-size:clamp(10px,2vh,16px);font-weight:850;color:#fff}
 .number-slot.called{background:#111;color:#fff;border-color:#111}
 .number-slot.current{background:#fff;color:var(--red);border-color:#fff;transform:scale(1.14);z-index:1}
-.particles,.ripples{position:fixed;inset:0;pointer-events:none;overflow:hidden}
-.particles{z-index:30}.ripples{z-index:24}
-.tambola-ball{position:fixed;width:34px;height:34px;border-radius:50%;background:#fff;color:#111;display:grid;place-items:center;font-weight:950;font-size:11px;box-shadow:0 7px 16px rgba(0,0,0,.22);transform:translate(-50%,-50%);will-change:transform,opacity}
-.ripple-ring{position:fixed;width:20px;height:20px;border:2px solid rgba(255,255,255,.9);border-radius:50%;transform:translate(-50%,-50%);opacity:0;will-change:width,height,opacity}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:30}
+.tambola-ball{position:fixed;border-radius:50%;background:#fff;color:#111;display:grid;place-items:center;font-weight:950;line-height:1;box-shadow:0 3px 9px rgba(0,0,0,.22);will-change:transform,opacity,filter;pointer-events:none}
 .flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:25}
+.ripple-layer{position:fixed;inset:0;pointer-events:none;z-index:24;overflow:hidden}
+.ripple-ring{position:fixed;border:3px solid rgba(255,255,255,.7);border-radius:50%;transform:translate(-50%,-50%) scale(0);opacity:0;will-change:transform,opacity}
 .toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translate(-50%,14px) scale(.96);background:#111;color:#fff;padding:10px 14px;border-radius:999px;font-size:11px;font-weight:800;opacity:0;pointer-events:none;transition:.18s;z-index:40}
 .toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
 @keyframes orbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
 @keyframes orbitR{to{transform:translate(-50%,-50%) rotate(-360deg)}}
 @keyframes ring{0%{transform:scale(.72);opacity:.9}100%{transform:scale(1.55);opacity:0}}
 @keyframes buttonFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-7px) scale(1.03)}}
-@media(max-width:650px){body{padding-left:8px;padding-right:8px}.app{grid-template-rows:auto minmax(205px,.51fr) auto minmax(0,1fr);gap:8px}.brand{gap:9px}.brand-logo{width:96px}.title-wrap h1{font-size:17px}.hero{grid-template-columns:minmax(0,1fr) 105px;gap:10px;padding:0 34px 10px 0}.hero.start{grid-template-columns:1fr;padding-right:0}.hero:before{width:220px;height:220px}.hero:after{width:145px;height:145px}.current{font-size:clamp(145px,41vw,225px)}.call-btn{width:105px;height:105px;font-size:17px;padding:10px}.hero.start .call-btn{width:132px;height:132px;font-size:20px}.wins{gap:6px}.wins-label{font-size:8px}.win-chip{padding:6px 8px;font-size:8px}.number-grid{gap:2px}.number-slot{font-size:clamp(9px,1.8vh,13px);border-radius:5px}.tracker-count{font-size:11px}.tambola-ball{width:30px;height:30px;font-size:10px}}
+@media(max-width:650px){body{padding-left:8px;padding-right:8px}.app{grid-template-rows:auto minmax(205px,.51fr) auto minmax(0,1fr);gap:8px}.brand{gap:9px}.brand-logo{width:96px}.title-wrap h1{font-size:17px}.hero{grid-template-columns:minmax(0,1fr) 105px;gap:10px;padding:0 34px 10px 0}.hero.start{grid-template-columns:1fr;padding-right:0}.hero:before{width:220px;height:220px}.hero:after{width:145px;height:145px}.current{font-size:clamp(145px,41vw,225px)}.call-btn{width:105px;height:105px;font-size:17px;padding:10px}.hero.start .call-btn{width:132px;height:132px;font-size:20px}.wins{gap:6px}.wins-label{font-size:8px}.win-chip{padding:6px 8px;font-size:8px}.number-grid{gap:2px}.number-slot{font-size:clamp(9px,1.8vh,13px);border-radius:5px}.tracker-count{font-size:11px}}
 @media(max-height:650px){.brand-logo{width:82px}.app{grid-template-rows:auto minmax(150px,.42fr) auto minmax(0,1fr);gap:7px}.hero{padding-bottom:6px}.current{font-size:110px}.call-btn{width:80px;height:80px;font-size:13px}.hero.start .call-btn{width:105px;height:105px;font-size:16px}.win-chip{padding:5px 7px}.number-grid{gap:2px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
 </style>
 </head>
 <body>
-<main class="app">
-<header class="topbar"><div class="brand"><img class="brand-logo" src="cheatr-logo.webp" alt="Cheatr" /><div class="title-wrap"><h1>Tambola</h1></div></div><button class="reset" id="resetBtn" type="button">Reset</button></header>
-<section class="hero start" id="hero"><div class="hero-copy"><div class="current" id="currentNumber"></div></div><button class="call-btn" id="callBtn" type="button">Call</button></section>
-<section class="wins"><div class="wins-label">Wins</div><div class="win-list" id="winList"></div></section>
-<section class="tracker"><div class="tracker-head"><h2>Number tracker</h2><span class="tracker-count" id="trackerCount">0/90</span></div><div class="number-grid" id="numberGrid"></div></section>
-</main>
-<div class="flash" id="flash"></div><div class="ripples" id="ripples"></div><div class="particles" id="particles"></div><div class="toast" id="toast"></div>
+<main class="app"><header class="topbar"><div class="brand"><img class="brand-logo" src="cheatr-logo.webp" alt="Cheatr" /><div class="title-wrap"><h1>Tambola</h1></div></div><button class="reset" id="resetBtn" type="button">Reset</button></header><section class="hero start" id="hero"><div class="hero-copy"><div class="current" id="currentNumber"></div></div><button class="call-btn" id="callBtn" type="button">Call</button></section><section class="wins"><div class="wins-label">Wins</div><div class="win-list" id="winList"></div></section><section class="tracker"><div class="tracker-head"><h2>Number tracker</h2><span class="tracker-count" id="trackerCount">0/90</span></div><div class="number-grid" id="numberGrid"></div></section></main><div class="flash" id="flash"></div><div class="ripple-layer" id="rippleLayer"></div><div class="confetti" id="confetti"></div><div class="toast" id="toast"></div>
 <script>
-(function(){
-'use strict';
+(function(){'use strict';
 var KEY='tambola-caller-v3',called=[],current=null,wins={},toastTimer=null,numberAnimation=null,tileAnimation=null;
 var TYPES=['Early Five','Top Line','Middle Line','Bottom Line','Corners','Full House 1','Full House 2'];
 function el(id){return document.getElementById(id)}
 function load(){try{var raw=localStorage.getItem(KEY)||localStorage.getItem('tambola-caller-v2');if(!raw)return;var d=JSON.parse(raw),seen={};(d.called||[]).forEach(function(v){var n=Number(v);if(Number.isInteger(n)&&n>=1&&n<=90&&!seen[n]){seen[n]=1;called.push(n)}});current=called.length?called[called.length-1]:null;if(d.wins&&typeof d.wins==='object')wins=d.wins}catch(e){}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify({called:called,wins:wins}))}catch(e){}}
 function build(){var f=document.createDocumentFragment();for(var n=1;n<=90;n++){var s=document.createElement('div');s.className='number-slot';s.id='number-'+n;s.textContent=n;f.appendChild(s)}el('numberGrid').appendChild(f);TYPES.forEach(function(name){var b=document.createElement('button');b.type='button';b.className='win-chip';b.dataset.win=name;b.textContent=name;b.onclick=function(){toggleWin(name)};el('winList').appendChild(b)})}
-function randomRot(){var m=18+Math.floor(Math.random()*18);return Math.random()<.5?-m:m}
-function revealCenter(){var cur=el('currentNumber'),hero=el('hero'),cr=cur.getBoundingClientRect();try{if(cur.firstChild&&cur.firstChild.nodeType===3){var range=document.createRange();range.selectNodeContents(cur);var rr=range.getBoundingClientRect();if(rr.width&&rr.height)cr=rr}}catch(e){}var hr=hero.getBoundingClientRect(),x=cr.left+cr.width/2,y=cr.top+cr.height/2;hero.style.setProperty('--circle-x',(x-hr.left)+'px');hero.style.setProperty('--circle-y',(y-hr.top)+'px');return{x:x,y:y,ground:hr.bottom}}
-function animateNumber(){var cur=el('currentNumber'),tile=el('number-'+current),start=randomRot(),opposite=start>0?-8:8,settle=start>0?3:-3;if(numberAnimation)numberAnimation.cancel();if(tileAnimation)tileAnimation.cancel();cur.getAnimations().forEach(function(a){a.cancel()});tile.getAnimations().forEach(function(a){a.cancel()});numberAnimation=cur.animate([{transform:'scale(.05) rotate('+start+'deg)',opacity:0,filter:'blur(22px)'},{transform:'scale(1.3) rotate('+opposite+'deg)',opacity:1,filter:'blur(0)',offset:.42},{transform:'scale(.9) rotate('+settle+'deg)',offset:.68},{transform:'scale(1.07) rotate(-1deg)',offset:.84},{transform:'scale(1) rotate(0)',opacity:1,filter:'blur(0)'}],{duration:980,easing:'cubic-bezier(.12,.9,.08,1.2)',fill:'both'});tileAnimation=tile.animate([{transform:'scale(.1) rotate('+(-start)+'deg)',opacity:0},{transform:'scale(1.35) rotate('+opposite+'deg)',opacity:1,offset:.58},{transform:'scale(1.14) rotate(0)',opacity:1}],{duration:880,easing:'cubic-bezier(.12,.9,.08,1.2)',fill:'both'})}
+function randomRot(){var m=34+Math.floor(Math.random()*13);return Math.random()<.5?-m:m}
+function revealCenter(){if(current===null)return null;var hero=el('hero'),cur=el('currentNumber'),hr=hero.getBoundingClientRect(),cr=cur.getBoundingClientRect(),x=cr.left+cr.width/2,y=cr.top+cr.height/2;hero.style.setProperty('--circle-x',(x-hr.left)+'px');hero.style.setProperty('--circle-y',(y-hr.top)+'px');return{x:x,y:y,hero:hr,number:cr}}
+function animateNumber(){var cur=el('currentNumber'),tile=el('number-'+current),start=randomRot(),opposite=start>0?-8:8,settle=start>0?3:-3;if(numberAnimation)numberAnimation.cancel();if(tileAnimation)tileAnimation.cancel();cur.getAnimations().forEach(function(a){a.cancel()});tile.getAnimations().forEach(function(a){a.cancel()});numberAnimation=cur.animate([{transform:'scale(.02,.18) rotate('+start+'deg)',opacity:0,filter:'blur(30px)'},{transform:'scale(1.55,.9) rotate('+opposite+'deg)',opacity:1,filter:'blur(0)',offset:.34},{transform:'scale(.86,1.1) rotate('+settle+'deg)',offset:.58},{transform:'scale(1.12,.96) rotate(-2deg)',offset:.78},{transform:'scale(1) rotate(0)',opacity:1,filter:'blur(0)'}],{duration:900,easing:'cubic-bezier(.1,.95,.08,1.22)',fill:'both'});tileAnimation=tile.animate([{transform:'scale(.05) rotate('+(-start)+'deg)',opacity:0},{transform:'scale(1.46) rotate('+opposite+'deg)',opacity:1,offset:.48},{transform:'scale(1.08) rotate(0)',offset:.72},{transform:'scale(1.14) rotate(0)',opacity:1}],{duration:820,easing:'cubic-bezier(.1,.95,.08,1.22)',fill:'both'})}
 function trackerRipple(){var center=el('number-'+current);if(!center)return;var grid=el('numberGrid'),slots=[].slice.call(grid.children),index=current-1,row=Math.floor(index/10),col=index%10;slots.forEach(function(slot,i){var r=Math.floor(i/10),c=i%10,d=Math.abs(r-row)+Math.abs(c-col);if(d>3)return;var delay=d*55;setTimeout(function(){slot.animate([{transform:slot===center?'scale(1.14)':'scale(1)',filter:'brightness(1)'},{transform:slot===center?'scale(1.24)':'scale(1.08)',filter:'brightness(1.8)',offset:.5},{transform:slot===center?'scale(1.14)':'scale(1)',filter:'brightness(1)'}],{duration:360,easing:'ease-out'})},delay)})}
-function dynamicRipples(){var c=revealCenter(),maxX=Math.max(c.x,innerWidth-c.x),maxY=Math.max(c.y,innerHeight-c.y),radius=Math.sqrt(maxX*maxX+maxY*maxY),box=el('ripples');for(var i=0;i<3;i++){(function(delay,opacity){var ring=document.createElement('i');ring.className='ripple-ring';ring.style.left=c.x+'px';ring.style.top=c.y+'px';box.appendChild(ring);ring.animate([{width:'20px',height:'20px',opacity:opacity},{width:(radius*2)+'px',height:(radius*2)+'px',opacity:0}],{duration:1050,delay:delay,easing:'cubic-bezier(.15,.75,.25,1)',fill:'forwards'}).onfinish=function(){ring.remove()}})(i*90,.3-i*.08)}}
-function tambolaBurst(count){
-  var c=revealCenter(),box=el('particles'),ballSize=innerWidth<=650?30:34,floorY=c.ground-ballSize/2-2;
-  for(var i=0;i<count;i++){
-    var ball=document.createElement('i'),
-        direction=Math.random()<.5?-1:1,
-        angle=(-108+Math.random()*36)*Math.PI/180,
-        speed=300+Math.random()*150,
-        duration=4600+Math.random()*900,
-        travelTime=duration/1000,
-        distanceToEdge=direction<0?c.x+ballSize*1.7:(innerWidth-c.x)+ballSize*1.7,
-        vx=direction*Math.max(145,(distanceToEdge/(travelTime*.78))*(1.12+Math.random()*.16)),
-        vy=Math.sin(angle)*speed,
-        gravity=680+Math.random()*120,
-        restitution=.43+Math.random()*.12,
-        friction=.9986-Math.random()*.0005,
-        delay=Math.random()*140,
-        rotation=Math.random()*720-360;
-    ball.className='tambola-ball';
-    ball.textContent=1+Math.floor(Math.random()*90);
-    ball.style.left=c.x+'px';
-    ball.style.top=c.y+'px';
-    ball.style.opacity='0';
-    box.appendChild(ball);
-
-    var frames=[],steps=110,x=0,y=0,lastTime=0,grounded=false,rollDirection=direction,fadeStarted=false;
-    for(var step=0;step<=steps;step++){
-      var t=step/steps,time=(duration/1000)*t,dt=time-lastTime;
-      lastTime=time;
-      if(step){
-        if(!grounded){
-          vy+=gravity*dt;
-          x+=vx*dt;
-          y+=vy*dt;
-          var absoluteY=c.y+y;
-          if(absoluteY>=floorY){
-            y=floorY-c.y;
-            if(Math.abs(vy)>80){
-              vy=-Math.abs(vy)*restitution;
-              vx*=.965;
-            }else{
-              vy=0;
-              grounded=true;
-              rollDirection=vx<0?-1:1;
-            }
-          }
-        }else{
-          x+=vx*dt;
-          vx*=Math.pow(friction,dt*60);
-        }
-      }
-
-      var absoluteX=c.x+x,
-          travelled=Math.sqrt(x*x+y*y),
-          enterProgress=Math.max(0,Math.min(1,(travelled-4)/34)),
-          enterEase=enterProgress*enterProgress*(3-2*enterProgress),
-          distanceToExit=rollDirection<0?absoluteX+ballSize:(innerWidth-absoluteX)+ballSize,
-          edgeProgress=Math.max(0,Math.min(1,distanceToExit/105)),
-          exitEase=edgeProgress*edgeProgress*(3-2*edgeProgress),
-          fade=enterEase;
-
-      if(grounded&&distanceToExit<105){
-        fadeStarted=true;
-        fade*=exitEase;
-      }
-
-      var scaleIn=.45+.55*enterEase,
-          scaleOut=.72+.28*(fadeStarted?exitEase:1),
-          scale=scaleIn*scaleOut,
-          spin=rotation*t+(grounded?x*5:0),
-          blur=(1-enterEase)*1.1+(fadeStarted?(1-exitEase)*1.25:0)+Math.min(.55,Math.abs(vy)/1100);
-
-      frames.push({
-        transform:'translate(calc(-50% + '+x.toFixed(1)+'px),calc(-50% + '+y.toFixed(1)+'px)) scale('+Math.max(.38,scale).toFixed(2)+') rotate('+spin.toFixed(1)+'deg)',
-        opacity:Math.max(0,Math.min(1,fade)),
-        filter:'blur('+blur.toFixed(2)+'px)',
-        offset:t
-      });
-    }
-
-    var animation=ball.animate(frames,{duration:duration,delay:delay,easing:'linear',fill:'forwards'});
-    animation.onfinish=function(){var target=this.effect&&this.effect.target;if(target)target.remove()};
-  }
-}
-function impact(){var flash=el('flash');flash.animate([{opacity:0},{opacity:.8,offset:.1},{opacity:.12,offset:.3},{opacity:0}],{duration:520});el('hero').animate([{transform:'translate(0)'},{transform:'translate(-5px,2px)'},{transform:'translate(6px,-3px)'},{transform:'translate(-3px,-1px)'},{transform:'translate(0)'}],{duration:420});dynamicRipples();trackerRipple();tambolaBurst(26)}
-function render(doAnimate){var used={};called.forEach(function(n){used[n]=1});for(var n=1;n<=90;n++){var s=el('number-'+n);s.className='number-slot'+(used[n]?' called':'')+(current===n?' current':'')}var hero=el('hero'),cur=el('currentNumber');if(current===null){hero.className='hero start';hero.style.setProperty('--circle-x','50%');hero.style.setProperty('--circle-y','50%');cur.textContent=''}else{hero.className='hero';cur.textContent=current;if(doAnimate)requestAnimationFrame(function(){requestAnimationFrame(function(){revealCenter();animateNumber();impact()})})}el('trackerCount').textContent=called.length+'/90';var btn=el('callBtn');btn.disabled=called.length>=90;btn.textContent=called.length>=90?'Done':'Call';document.querySelectorAll('.win-chip').forEach(function(c){c.className='win-chip'+(wins[c.dataset.win]?' won':'')})}
+function dynamicRipples(){var c=revealCenter();if(!c)return;var layer=el('rippleLayer'),corners=[[0,0],[innerWidth,0],[0,innerHeight],[innerWidth,innerHeight]],max=0;corners.forEach(function(p){var dx=p[0]-c.x,dy=p[1]-c.y;max=Math.max(max,Math.sqrt(dx*dx+dy*dy))});[0,.09,.18].forEach(function(delay,i){var ring=document.createElement('div');ring.className='ripple-ring';ring.style.left=c.x+'px';ring.style.top=c.y+'px';ring.style.width=(max*2)+'px';ring.style.height=(max*2)+'px';ring.style.borderWidth=(3-i*.6)+'px';layer.appendChild(ring);var a=ring.animate([{transform:'translate(-50%,-50%) scale(.02)',opacity:.55-i*.12},{transform:'translate(-50%,-50%) scale(1)',opacity:0}],{duration:950,delay:delay*1000,easing:'cubic-bezier(.15,.72,.2,1)',fill:'forwards'});a.onfinish=function(){ring.remove()}})}
+function tambolaBurst(count){var c=revealCenter();if(!c)return;var box=el('confetti'),floor=c.hero.bottom-2;for(var i=0;i<count;i++){(function(){var b=document.createElement('div'),size=11+Math.random()*7,dir=Math.random()<.5?-1:1,target=dir<0?-size-28:innerWidth+size+28,distance=Math.abs(target-c.x),travelTime=1.7+Math.random()*.75,friction=.992,steps=Math.max(1,Math.round(travelTime*60)),decay=(1-Math.pow(friction,steps))/(1-friction),vx=dir*(distance/decay)*(1.06+Math.random()*.12),vy=-(260+Math.random()*220),gravity=920+Math.random()*180,x=c.x-size/2,y=c.y-size/2,rotation=Math.random()*180,spin=dir*(220+Math.random()*420),last=performance.now(),born=last,delay=Math.random()*90,bounces=0,visible=false,finished=false;b.className='tambola-ball';b.textContent=1+Math.floor(Math.random()*90);b.style.width=size+'px';b.style.height=size+'px';b.style.fontSize=Math.max(6,size*.42)+'px';b.style.left='0';b.style.top='0';b.style.opacity='0';box.appendChild(b);function frame(now){if(finished)return;if(now-born<delay){requestAnimationFrame(frame);return}var dt=Math.min((now-last)/1000,.034);last=now;if(!visible){visible=true;x+=vx*.016;y+=vy*.016}vy+=gravity*dt;x+=vx*dt;y+=vy*dt;rotation+=spin*dt;if(y+size>=floor){y=floor-size;if(Math.abs(vy)>55&&bounces<3){vy=-Math.abs(vy)*(.42-bounces*.07);bounces++}else{vy=0}vx*=Math.pow(friction,dt*60);spin*=Math.pow(.988,dt*60)}var edgeDistance=dir<0?Math.max(0,x+size):Math.max(0,innerWidth-x),fadeZone=90,opacity=Math.min(1,(now-born-delay)/120);if(edgeDistance<fadeZone)opacity*=Math.max(0,edgeDistance/fadeZone);var scale=.88+.12*Math.min(1,edgeDistance/fadeZone);b.style.opacity=opacity;b.style.filter=edgeDistance<fadeZone?'blur('+(1-edgeDistance/fadeZone)*1.2+'px)':'none';b.style.transform='translate3d('+x+'px,'+y+'px,0) rotate('+rotation+'deg) scale('+scale+')';if((dir<0&&x<-size-30)||(dir>0&&x>innerWidth+30)){finished=true;b.remove();return}requestAnimationFrame(frame)}requestAnimationFrame(frame)})()}}
+function impact(){var flash=el('flash');flash.animate([{opacity:0},{opacity:.8,offset:.1},{opacity:.12,offset:.3},{opacity:0}],{duration:520});el('hero').animate([{transform:'translate(0)'},{transform:'translate(-8px,4px) rotate(-.35deg)'},{transform:'translate(9px,-5px) rotate(.35deg)'},{transform:'translate(-6px,-2px)'},{transform:'translate(4px,2px)'},{transform:'translate(0)'}],{duration:470,easing:'ease-out'});dynamicRipples();trackerRipple();tambolaBurst(26)}
+function render(doAnimate){var used={};called.forEach(function(n){used[n]=1});for(var n=1;n<=90;n++){var s=el('number-'+n);s.className='number-slot'+(used[n]?' called':'')+(current===n?' current':'')}var hero=el('hero'),cur=el('currentNumber');if(current===null){hero.className='hero start';hero.style.setProperty('--circle-x','50%');hero.style.setProperty('--circle-y','50%');cur.textContent=''}else{hero.className='hero';cur.textContent=current;if(doAnimate){revealCenter();animateNumber();impact()}}el('trackerCount').textContent=called.length+'/90';var btn=el('callBtn');btn.disabled=called.length>=90;btn.textContent=called.length>=90?'Done':'Call';document.querySelectorAll('.win-chip').forEach(function(c){c.className='win-chip'+(wins[c.dataset.win]?' won':'')})}
 function callNext(){if(called.length>=90)return;var used={},left=[];called.forEach(function(n){used[n]=1});for(var n=1;n<=90;n++)if(!used[n])left.push(n);current=left[Math.floor(Math.random()*left.length)];called.push(current);render(true);save();toast('Number '+current+' called')}
-function toggleWin(name){wins[name]=!wins[name];render(false);save();if(wins[name]){dynamicRipples();tambolaBurst(name.indexOf('Full House')===0?55:34);toast(name+' claimed!')}else toast(name+' unmarked')}
+function toggleWin(name){wins[name]=!wins[name];render(false);save();if(wins[name]){tambolaBurst(40);toast(name+' claimed!')}else toast(name+' unmarked')}
 function reset(){if(!confirm('Reset this Tambola game? All numbers and wins will be cleared.'))return;if(numberAnimation)numberAnimation.cancel();if(tileAnimation)tileAnimation.cancel();called=[];current=null;wins={};try{localStorage.removeItem(KEY);localStorage.removeItem('tambola-caller-v2')}catch(e){}render(false);toast('Game reset')}
 function toast(msg){var n=el('toast');n.textContent=msg;n.className='toast show';clearTimeout(toastTimer);toastTimer=setTimeout(function(){n.className='toast'},1400)}
-document.addEventListener('DOMContentLoaded',function(){load();build();render(false);el('callBtn').onclick=callNext;el('resetBtn').onclick=reset;addEventListener('resize',function(){if(current!==null)revealCenter()})});
+document.addEventListener('DOMContentLoaded',function(){load();build();render(false);el('callBtn').onclick=callNext;el('resetBtn').onclick=reset;addEventListener('resize',function(){if(current!==null)revealCenter()})})
 })();
 </script>
 </body>
