@@ -92,13 +92,15 @@ function tambolaBurst(count){
     var ball=document.createElement('i'),
         direction=Math.random()<.5?-1:1,
         angle=(-108+Math.random()*36)*Math.PI/180,
-        speed=245+Math.random()*175,
-        vx=Math.cos(angle)*speed,
+        speed=300+Math.random()*150,
+        duration=4600+Math.random()*900,
+        travelTime=duration/1000,
+        distanceToEdge=direction<0?c.x+ballSize*1.7:(innerWidth-c.x)+ballSize*1.7,
+        vx=direction*Math.max(145,(distanceToEdge/(travelTime*.78))*(1.12+Math.random()*.16)),
         vy=Math.sin(angle)*speed,
         gravity=680+Math.random()*120,
         restitution=.43+Math.random()*.12,
-        friction=.986-Math.random()*.004,
-        duration=4600+Math.random()*900,
+        friction=.9986-Math.random()*.0005,
         delay=Math.random()*140,
         rotation=Math.random()*720-360;
     ball.className='tambola-ball';
@@ -122,18 +124,16 @@ function tambolaBurst(count){
             y=floorY-c.y;
             if(Math.abs(vy)>80){
               vy=-Math.abs(vy)*restitution;
-              vx*=.91;
+              vx*=.965;
             }else{
               vy=0;
               grounded=true;
-              rollDirection=vx===0?direction:(vx<0?-1:1);
-              vx=rollDirection*(125+Math.random()*50);
+              rollDirection=vx<0?-1:1;
             }
           }
         }else{
           x+=vx*dt;
           vx*=Math.pow(friction,dt*60);
-          if(Math.abs(vx)<76)vx=rollDirection*76;
         }
       }
 
